@@ -1,0 +1,119 @@
+{% extends "bootstrap/base.html" %}
+{% block head %}
+{{super()}}
+<link href="{{ url_for('static', filename='custom-css/custom.css') }} " rel="stylesheet" type="text/css"
+      xmlns="http://www.w3.org/1999/html"/>
+{% endblock %}
+{% block title %}Xrlin's Blog{% endblock %}
+{% from 'pagination.html' import render_pagination %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block body %}
+<body class="custom-background">
+<div class="container container-page">
+    {% block navbar %}
+    <div>
+        <div class="container">
+            <div class="custom-header" style="background:#FFFFFF;">
+                <span><h1>Xrlin's Blog</h1></span>
+                <span>简简单单</span>
+            </div>
+            <div class="navbar navbar-default custom-nav" role="navigation">
+
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        {% for category in categories %}
+                        <li><a href="{{ url_for('main.category', id=category.id) }}">{{ category.name }}</a></li>
+                        {% endfor %}
+                        {% if not current_user.is_authenticated() %}
+                        <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                        <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                        {% else %}
+                        <li>
+                            <a href="{{ url_for('main.user', username=current_user.username) }}">
+                            Hello,{{ current_user.username }}</a>
+                        </li>
+                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                        {% endif %}
+                    </ul>
+                    <form class="navbar-form navbar-right" role="search" method="get"
+                          action="{{ url_for('main.search') }}">
+                        <div class="form-group">
+                            <input id="search" name="search" type="text" class="form-control"
+                                   placeholder="Search for...">
+                        </div>
+                        <input type="submit" class="btn btn-default" value="Go!"/>
+                    </form>
+                </div>
+
+            </div>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container">
+        <div class="custom-wrapper">
+            <div class="row">
+                {% block article %}
+                <div class="col-md-9">
+                    <div class="article-wrapper">
+                        {% for article in pagination.items %}
+                        <article class="article-box">
+                            <header class="article-header"><h1><a
+                                    href="{{ url_for('main.article', id=article.id) }}"> {{
+                                article.title
+                                }}</a></h1>
+                            </header>
+                            <div class="article-body">
+                                {{ article.context | safe | truncate }}
+                            </div>
+                            <footer class="article-footer">
+                            <span>
+                                目录:<a href="{{ url_for('main.category', id=article.category.id) }}" title="查看该目录的所有文章"> {{
+                                article.category.name }}</a>
+                            </span>
+                                <span>
+                                标签:
+                                    {% for tag in article.tags %}
+                                    <a href="{{ url_for('main.tag', id=tag.id) }}" title="查看该标签的所有文章"> {{
+                                        tag.name }}</a>
+                                    {% endfor %}
+                            </span>
+                                <span>
+                                    发表时间:{{ article.created_date.strftime('%Y/%m/%d') }}
+                                </span>
+                            </footer>
+                        </article>
+                        {% endfor %}
+                        {% block pagination %}
+                        {{ render_pagination(pagination, "main.index") }}
+                        {% endblock %}
+                    </div>
+                </div>
+                {% endblock %}
+                <!-- 垂直分割线
+                <hr style="width:1px;height:500px;background-color:#e8e8e8;"></hr>
+                -->
+                {% block sidebar %}
+                <div class="col-md-3">
+                    <aside>
+                        <p>标签</p>
+                        <ul>
+                            {% for tag in tags %}
+                            <li><a class="list-group-item" href="{{ url_for('main.tag', id=tag.id) }}">{{ tag.name
+                                }}</a></li>
+                            {% endfor %}
+                        </ul>
+
+                    </aside>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</div>
+</body>
+{% endblock %}

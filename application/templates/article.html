@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block article %}
+<div class="col-md-9">
+
+    <div class="article-wrapper">
+        <div class="article-header">{{ article.title }}
+            <span>发表时间:{{ article.created_date.strftime('%Y/%m/%d') }}</span>
+            <span class="glyphicon glyphicon-eye-open">{{ article.view_count}}</span>
+            <span>评论数:{{article.comments | length}}</span>
+        </div>
+        <div>
+            {{ article.context | safe}}
+        </div>
+        <footer class="article-footer">
+                            <span>
+                                目录:<a href="{{ url_for('main.category', id=article.category.id) }}" title="查看该目录的所有文章">
+                                {{
+                                article.category.name }}</a>
+                            </span>
+                    <span>
+                                标签:
+                                    {% for tag in article.tags %}
+                                    <a href="{{ url_for('main.tag', id=tag.id) }}" title="查看该标签的所有文章"> {{
+                                        tag.name }}</a>
+                                    {% endfor %}
+                            </span>
+        </footer>
+    </div>
+    {% include '_comments.html' %}
+    {% if current_user.is_authenticated() %}
+    {{ wtf.quick_form(form) }}
+    {% else %}
+    <p style="margin-top: 24px;"><a
+            href="{{ url_for('auth.login', next=url_for('main.article', id=article.id)) }}">登录</a>后方可进行评论
+    </p>
+    {% for message in get_flashed_messages() %}
+    <p class="text-info">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

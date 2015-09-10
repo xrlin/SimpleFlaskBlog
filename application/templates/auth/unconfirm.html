@@ -1,0 +1,15 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Xrlin's Blog{% endblock %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>验证失败</h1>
+  </div>
+  <div class="col-md-4">
+      {% for message in get_flashed_messages() %}
+        <p class="text-danger">{{ message }}</p>
+      {% endfor %}
+      <p class="text-info"><a href="{{ url_for('auth.resend') }}">重新发送验证邮件</a></p>
+  </div>
+{% endblock %}

@@ -10,7 +10,6 @@ flask-login flask flask-sqlalchemy flask-wtf python3.x ...
 
 #配置及初始化
 在config.py配置好邮箱和密码、管理员帐号名称，依次运行
-python manager.py drop_all
 python manager.py create_all
 
 #运行

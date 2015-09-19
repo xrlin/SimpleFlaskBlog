@@ -1,1 +1,20 @@
 {% extends 'index.html' %}
+{% block sidebar %}
+<div class="col-md-3">
+    <aside>
+        <p>标签</p>
+        <ul>
+            {% for tag in tags %}
+            {% if tag.id == current_tag_id %}
+            <li><a class="list-group-item tag-active" href="{{ url_for('main.tag', id=tag.id) }}">{{ tag.name
+                }}</a></li>
+            {% else %}
+            <li><a class="list-group-item" href="{{ url_for('main.tag', id=tag.id) }}">{{ tag.name
+                }}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+
+    </aside>
+</div>
+{% endblock %}

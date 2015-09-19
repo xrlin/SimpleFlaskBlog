@@ -1,4 +1,9 @@
 {% extends 'index.html' %}
+{% block head %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+{% endblock %}
+
 {% import "bootstrap/wtf.html" as wtf %}
 {% block article %}
 <div class="col-md-9">
@@ -10,7 +15,7 @@
             <span>评论数:{{article.comments | length}}</span>
         </div>
         <div>
-            {{ article.context | safe}}
+            {{ article.context | markdown | safe}}
         </div>
         <footer class="article-footer">
                             <span>
@@ -29,6 +34,9 @@
     </div>
     {% include '_comments.html' %}
     {% if current_user.is_authenticated() %}
+    <div>
+        <p class="text-info" id="reply_info"></p>
+    </div>
     {{ wtf.quick_form(form) }}
     {% else %}
     <p style="margin-top: 24px;"><a

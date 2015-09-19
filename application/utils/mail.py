@@ -25,3 +25,12 @@ def send_mail(subject, recipients, token_url):
     msg.html = html_body.format(token_url)
     thr = Thread(target=send_async_email, args=[app, msg])
     thr.start()
+
+
+def send_reply_mail(subject, recipients, reply_user, article_url):
+    app = current_app._get_current_object()
+    html_body=app.config['REPLY_MAIL_BODY_HTML']
+    msg = Message(subject, recipients=recipients)
+    msg.html = html_body.format(reply_user, article_url)
+    thr = Thread(target=send_async_email, args=[app, msg])
+    thr.start()

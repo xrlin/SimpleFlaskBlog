@@ -23,8 +23,8 @@ class User(UserMixin, db.Model):
     __tablename__ = 'user'
     query_class = UserQuery
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
-    email = db.Column(db.String(120), unique=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))       # 加密后的密码hash值
     confirmed = db.Column(db.Boolean, default=False)
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
@@ -40,7 +40,7 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __init__(self, username, email, password):
+    def __init__(self, username=None, email=None, password=None):
         self.username = username
         self.email = email
         self.password = password
@@ -114,10 +114,10 @@ class Category(db.Model):
 
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
     articles = db.relationship('Article', backref='category', lazy='dynamic')
 
-    def __init__(self, name):
+    def __init__(self, name=None):
         self.name = name
 
     def __repr__(self):
@@ -156,25 +156,20 @@ class Article(db.Model):
     query_class = ArticleQuery
     # __searchable__ = ['title', 'context']   # 设定搜索范围
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255))
-    context = db.Column(db.Text())
-    created_date = db.Column(db.DateTime())
+    title = db.Column(db.String(255), nullable=False)
+    context = db.Column(db.Text(), nullable=False)
+    created_date = db.Column(db.DateTime(), default=datetime.utcnow())
     view_count = db.Column(db.Integer, default=0)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
     tags = db.relationship('Tag', secondary=article_tag_table, backref='articles')
     comments = db.relationship('Comment', backref='article')    # 设置为dynamic不利于获取评论数
 
-    def __init__(self, title, context, created_date, view_count, category_id, tags):
+    def __init__(self, title=None, context=None, category_id=None, tags=[]):
         self.title = title
         self.context = context
-        self.view_count = view_count
         self.category_id = category_id
         self.tags = tags
 
-        if created_date is None:
-            self.created_date = datetime.utcnow()
-        else:
-            self.created_date = created_date
 
     def __str__(self):
         return '<Article %s>' % self.title
@@ -188,9 +183,10 @@ class Tag(db.Model):
 
     __tablename__ = 'tags'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=True)
+    name = db.Column(db.String(255), unique=True, nullable=False)
 
-    def __init__(self, name):
+
+    def __init__(self, name=None):    # because flask-admin cannot pass arguments when create the model
         self.name = name
 
     def __str__(self):

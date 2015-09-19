@@ -16,6 +16,10 @@ body.custom-background {
     text-align: left;
 }
 
+.header-brand {
+    margin-left:24px;
+}
+
 .custom-nav {
     border-radius: 0px;
 }
@@ -41,7 +45,7 @@ body.custom-background {
 
 .custom-wrapper aside ul{
     list-style-type: none;
-    broder: 0;
+    border: 0;
 }
 
 .custom-wrapper aside ul li a{
@@ -50,6 +54,12 @@ body.custom-background {
 
 }
 
+.tag-active{
+    background-color: #e8e8e8;
+    border: none;
+    border-bottom: 2px solid #e8e8e8;
+
+}
 .article-wrapper {
     border-right: 1px solid #e8e8e8;
 }

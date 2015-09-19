@@ -1,36 +1,45 @@
-from flask import render_template, flash, request, current_app
-from flask import Markup
-from markdown import  markdown
-from flask_login import login_required, current_user
-from werkzeug.exceptions import abort
+from flask_admin.contrib.sqla import ModelView
+from flask_login import current_user
 from application import config
-from application.admin import admin
-from application.admin.forms import PageDownForm
-from application.models import Tag, Article
-from application.models import Category
+from flask import redirect, url_for, request, abort
 
-__author__ = 'archer'
+'''
+    权限控制
+'''
 
 
-@admin.route("/", methods=['POST', 'GET'])
-@login_required
-def index():
-    if current_user.username != config.Admin:
-        abort(403)
-    form = PageDownForm()
-    categories = [(name, name) for name in current_app.config['CATEGORIES']]
-    form.category.choices = categories
-    if request.method == 'POST' and form.validate():
-        tags = []
-        for name in form.tags.data.split(','):
-            if Tag.query.filter_by(name=name).first():
-                tags.append(Tag.query.filter_by(name=name).first())
-            else:
-                tags.append(Tag(name))
-        name = form.category.data
-        category_id = Category.query.filter_by(name=name).first().id
-        context = Markup(markdown(form.pagedown.data))
-        article = Article(form.title.data, context, None, 0, category_id, tags)
-        article.save()
-        flash("发表新文章成功")
-    return render_template('admin/index.html', form=form, categories=categories)
+class MicroBlogModelView(ModelView):
+
+    def is_accessible(self):
+        if not current_user.is_authenticated():
+            return False
+        elif not current_user.username == config.Admin:
+            abort(403)
+            return False
+        return True
+
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        return redirect(url_for('auth.login', next=request.url))
+
+''''
+
+class CustomView(BaseView):
+    @expose('/')
+    def index(self):
+        if not current_user.is_authenticated():
+            return redirect(url_for('auth.login', next=request.url))
+        elif not current_user.username == config.Admin:
+            abort(403)
+        return self.render('admin/index.html')
+'''
+
+'''
+    后台管理博文界面
+'''
+
+
+class ArticleModelView(MicroBlogModelView):
+
+    edit_template = 'admin/model/article-edit.html'
+    create_template = 'admin/model/article-create.html'

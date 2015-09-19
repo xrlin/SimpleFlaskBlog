@@ -22,7 +22,7 @@ def drop_all():
 def make_shell_context():
     return dict(app=app, db=db, User=User, send_mail=send_mail, Category=Category, Tag=Tag, Article=Article, Comment=Comment)
 
-manager.add_command("runserver", Server(host="127.0.0.1", port=5000))
+manager.add_command("runserver", Server(host="0.0.0.0", port=5000))
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 

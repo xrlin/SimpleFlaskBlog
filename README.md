@@ -18,5 +18,3 @@ python manager.py runserver
 首页: http://localhost:5000/
 管理界面: http://localhost:5000/admin
 
-#未完待续
-flash消息闪现的处理、ssl加密传输、评论提醒功能、文章再次编辑和删除功能

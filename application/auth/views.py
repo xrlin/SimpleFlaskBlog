@@ -17,7 +17,7 @@ def login():
         u = User.query.get_user_by_name(form.username.data)
         if u and u.verify_password(form.password.data):
             login_user(u, remember=form.remember_me.data)
-            flash("成功登录，即将跳转回首页")
+            # flash("成功登录，即将跳转回首页")
             return redirect(request.args.get('next') or url_for('main.index'))
         flash("用户名或密码不正确")
     return render_template("auth/login.html", form=form)
@@ -27,8 +27,9 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("you have log out")
+    # flash("you have log out")
     return redirect(url_for("main.index"))
+
 
 @auth.route("/register", methods=['POST', 'GET'])
 def register():

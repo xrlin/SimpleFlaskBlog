@@ -1,26 +1,5 @@
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-{% block title %}Login{% endblock %}
-{% block head %}
-{{ pagedown.include_pagedown() }}
-{% endblock %}
-{% block content %}
-<div class="page-header">
-    <h1>后台管理</h1>
-</div>
-<div class="col-md-8">
-    {% for message in get_flashed_messages() %}
-    <p class="text-danger">{{ message }}</p>
-    {% endfor %}
-    <form method="POST" actioin="{{ url_for('admin.index') }}">
-        {{ form.csrf_token }}   <!-- 很重要，没有这条语句会造成validate失败 -->
-        {{ form.category.label }} {{form.category }}
-        {{ form.title.label }} {{form.title }}
-        {{ form.tags.label }} {{form.tags }}
-        {{ form.pagedown(only_input=True, rows=10)}}
-        {{ form.pagedown(only_preview=True) }}
-        {{ form.submit }}
-    </form>
-</div>
-
+{% extends 'admin/master.html' %}
+{% block body %}
+  <p>This is the page only for Administrator! </p>
+  <p><b>Remember:</b> With great power comes great responsibility. </p>
 {% endblock %}

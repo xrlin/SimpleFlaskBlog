@@ -1,0 +1,16 @@
+{% extends 'admin/model/create.html' %}
+{% block head %}
+{{super()}}
+<script src="{{ url_for('static', filename='js/marked/lib/marked.js')}}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block body %}
+{{ super() }}
+<div class="btn-group" role="group" aria-label="...">
+    <button id="preview-btn" type="button" class="btn btn-default" onclick="markdownPreview()">Preview</button>
+</div>
+
+<p id="preview">
+</p>
+
+{% endblock %}

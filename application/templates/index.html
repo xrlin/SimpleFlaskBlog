@@ -69,7 +69,7 @@
                                 }}</a></h1>
                             </header>
                             <div class="article-body">
-                                {{ article.context | markdown | safe | truncate(500) }}
+                                {{ article.context | truncate(500) | markdown | safe  }}
                             </div>
                             <footer class="article-footer">
                             <span>

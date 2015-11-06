@@ -26,18 +26,22 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "date.sqlite")
 # comment this because whoosh cannot support python3 now
 # WHOOSH_BASE = os.path.join(basedir, "whoosh_base")   # 设定全文搜索的数据库
 # mail configureation
-#setting the mail info according your mail provider
+# setting the mail info according your mail provider
+# all mail config are get from system env var.
 MAIL_USE_SSL = True
-MAIL_SERVER = 'xx'
+# Just for example, change this to adjust your mail server
+MAIL_SERVER = 'smtp.qq.com'  
 MAIL_PORT = 465
-MAIL_USERNAME = 'xx'
-MAIL_PASSWORD = 'xx'
-MAIL_DEFAULT_SENDER = 'xx'     # 默认的sender
+# Get mail account and password from system env, of course you can define those directly
+MAIL_USERNAME = os.environ.get('BLOG_MAIL_USERNAME')
+MAIL_PASSWORD = os.environ.get('BLOG_MAIL_PASSWORD')
+MAIL_DEFAULT_SENDER = MAIL_USERNAME   # default email sender
 
 SUBJECT_HEADER = "来自xrlin的验证信息"     # subject_header 
 REPLY_SUBJECT_HEADER = "您在xrlin's blog的评论收到回复"  # reply mail subject header
 
-BASE_URL = "http://127.0.0.1:5000/"
+# change this url to your real domain and port
+BASE_URL = "http://127.0.0.1:5000"
 
 # a url with token to confirm information
 token_url_template = BASE_URL + "/auth/confirm/{0}"
@@ -62,4 +66,5 @@ RECAPTCHA_PUBLIC_KEY = '6Ld4rwITAAAAAKUD5AntlHi7HL36W2vHJQOIjQmA'
 RECAPTCHA_PRIVATE_KEY = '6Ld4rwITAAAAAFE8nTS852QbsqCBx1mN8D4BqenE'
 
 # define a super user for this website, this user must have registered in this website
-Admin = "xx"
+# Get admin user's name from system env, this user must have registered in this website
+Admin = os.environ.get('BLOG_ADMIN')

@@ -2,7 +2,6 @@
 
 from flask import Flask
 from flask.ext.markdown import Markdown
-from flask_sslify import SSLify
 from flask_admin import Admin
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
@@ -26,7 +25,6 @@ from .main import main as main_blueprint
 from .admin.views import  MicroBlogModelView, ArticleModelView
 from .admin.views import ArticleModelView
 from application.models import Article, User, Category, Tag
-from application.utils.ssl_required import ssl_required
 
 def create_app():
     app = Flask(__name__)
@@ -45,7 +43,6 @@ def create_app():
     administrator.add_view(MicroBlogModelView(Tag, db.session))
     app.register_blueprint(auth_blueprint, url_prefix="/auth")
     app.register_blueprint(main_blueprint)
-    sslify = SSLify(app)
 
     return app
 

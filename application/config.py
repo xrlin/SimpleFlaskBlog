@@ -3,6 +3,8 @@
 
 import os
 
+# SERVER_NAME = 'xrlin.tk:80'
+
 basedir = os.path.abspath(os.path.dirname(__file__))    # 获取当前文件夹绝对路径
 
 # set debug to False when you publish the website in public

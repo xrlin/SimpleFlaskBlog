@@ -10,9 +10,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))    # 获取当前文件夹�
 # set debug to False when you publish the website in public
 DEBUG = False
 
-# set this to true to redirect all the request with https
-SSL = True
-
 # config categories in your blog
 CATEGORIES = ["Technology", "About"]
 
@@ -33,8 +30,8 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "date.sqlite")
 # all mail config are get from system env var.
 MAIL_USE_SSL = True
 # Just for example, change this to adjust your mail server
-MAIL_SERVER = 'smtp.qq.com'  
-MAIL_PORT = 465
+MAIL_SERVER = os.environ.get('MAIL_SERVER')
+MAIL_PORT = os.environ.get('MAIL_PORT')
 # Get mail account and password from system env, of course you can define those directly
 MAIL_USERNAME = os.environ.get('BLOG_MAIL_USERNAME')
 MAIL_PASSWORD = os.environ.get('BLOG_MAIL_PASSWORD')

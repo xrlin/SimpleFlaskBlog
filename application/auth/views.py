@@ -1,3 +1,4 @@
+#coding=utf-8
 from . import auth
 from flask_login import login_user, login_required, current_user, logout_user
 from application.utils.mail import send_mail

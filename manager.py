@@ -1,3 +1,4 @@
+#coding=utf-8
 from application import db, create_app
 from flask.ext.script import Manager, Server, prompt_bool, Shell
 from application.models import User, Category, Tag, Article, Comment

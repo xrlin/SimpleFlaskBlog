@@ -1,3 +1,4 @@
+#coding=utf-8
 from . import main
 from flask import session, render_template, current_app, request, flash
 from flask_login import current_user, login_required

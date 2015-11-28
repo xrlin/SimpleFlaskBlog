@@ -1,3 +1,4 @@
+#coding=utf-8
 from functools import reduce
 from werkzeug.security import generate_password_hash, check_password_hash
 __author__ = 'archer'

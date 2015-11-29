@@ -12,7 +12,7 @@ from flask import redirect, url_for, request, abort
 class MicroBlogModelView(ModelView):
 
     def is_accessible(self):
-        if not current_user.is_authenticated():
+        if not current_user.is_authenticated:
             return False
         elif not current_user.username == config.Admin:
             abort(403)

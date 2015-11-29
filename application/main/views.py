@@ -10,6 +10,13 @@ from application.models import Article, Tag, Category, Comment, User
 
 __author__ = 'archer'
 
+'''
+# Just for checkout
+@main.route('/')
+@main.route('/<html_file>')
+def check_signature(html_file='index.html'):
+    return render_template('site-check/'+html_file)
+'''
 
 @main.route("/")
 @main.route("/<int:page>")
@@ -18,7 +25,6 @@ def index(page=1):
     categories = Category.query.all()
     pagination = Article.query.paginate(page, per_page=current_app.config['PER_PAGE'])
     return render_template("index.html", categories=categories, tags=tags, pagination=pagination)
-
 
 @main.route("/user/<username>")
 @login_required

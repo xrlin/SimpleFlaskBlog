@@ -3,6 +3,9 @@
 #简介
 使用Flask编写的一个小型个人博客网站
 
+#网站示例
+[我的个人博客](https://xrlin.tk)
+
 #依赖及安装
 flask-login flask flask-sqlalchemy flask-wtf python3.x ...
 安装好python3.x 后直接在工程目录下用命令行运行 pip install -r requirements.txt

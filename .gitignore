@@ -1,5 +1,6 @@
 *.sqlite
 migrations/*
+nohup.out
 
 #common python iginore list
 # Byte-compiled / optimized / DLL files

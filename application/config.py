@@ -3,6 +3,9 @@
 
 import os
 
+# configure bootstrap
+BOOTSTRAP_SERVE_LOCAL = True
+
 # SERVER_NAME = 'xrlin.tk:80'
 
 basedir = os.path.abspath(os.path.dirname(__file__))    # 获取当前文件夹绝对路径

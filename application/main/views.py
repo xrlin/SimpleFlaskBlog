@@ -7,6 +7,7 @@ from application.utils.mail import send_reply_mail
 from application import config
 from application.main.forms import CommentForm
 from application.models import Article, Tag, Category, Comment, User
+from sqlalchemy import desc
 
 __author__ = 'archer'
 
@@ -23,7 +24,7 @@ def check_signature(html_file='index.html'):
 def index(page=1):
     tags = Tag.query.all()
     categories = Category.query.all()
-    pagination = Article.query.paginate(page, per_page=current_app.config['PER_PAGE'])
+    pagination = Article.query.order_by(desc(Article.created_date)).paginate(page, per_page=current_app.config['PER_PAGE'])
     return render_template("index.html", categories=categories, tags=tags, pagination=pagination)
 
 @main.route("/user/<username>")

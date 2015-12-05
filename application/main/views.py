@@ -67,8 +67,6 @@ def article(id):
     tags = Tag.query.all()
     categories = Category.query.all()
     article = Article.query.get(id)
-    article.view_count += 1
-    article.save()
     parent_comments = [c for c in article.comments if not c.parent_id]  # 获取该文章的所有最顶级（parent)评论
     if form.validate_on_submit():
         if form.reply_to_user.data:
@@ -92,6 +90,13 @@ def article(id):
     return render_template("article.html", categories=categories, tags=tags,
                            article=article, form=form, Comment=Comment, parent_comments=parent_comments)
 
+@main.route("/article/<int:id>/addview", methods=['GET'])
+def add_viewcount(id):
+    article = Article.query.get(id)
+    article.view_count += 1
+    article.save()
+    return 'ok'
+    
 
 @main.route("/search", methods=['POST', 'GET'])
 def search():

@@ -22,3 +22,71 @@ var markdownPreview = function(){
     document.getElementById('preview').innerHTML =
       marked(document.getElementById('context').value);
 }
+
+function setCookie(url, hasViewed, expiretime)
+{
+var exdate=new Date()
+exdate.setTime(exdate.getTime()+expiretime)
+//console.log(exdate.toGMTString());
+document.cookie=url+ "=" +escape(hasViewed)+
+((expiretime==null) ? "" : ";expires="+exdate.toGMTString())
+}
+
+function getCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=")
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 
+    c_end=document.cookie.indexOf(";",c_start)
+    if (c_end==-1) c_end=document.cookie.length
+    return unescape(document.cookie.substring(c_start,c_end))
+    } 
+  }
+return ""
+}
+
+function checkCookie(url){
+    hasViewed = getCookie(url)
+    console.log(hasViewed)
+    return hasViewed
+}
+
+function addLoadEvent(func){
+    var oldonload = window.onload;
+    if(typeof window.onload != 'function'){
+	window.onload=func;
+    }
+    else {
+	window.onload = function(){
+		oldonload();
+		func();
+	}
+	}
+}
+
+function addViewed(){
+    url = window.location.href;
+    get_url = url + "/addview"
+    var xmlHttp = null;
+	try{
+	xmlHttp = new XMLHttpRequest();
+	}catch(e){
+	try{
+	   xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+	}catch(e){
+	xmlHttp = new ActiveXObject("Microsoft.XMLHttp");	}
+	}
+    if (!checkCookie(url)) {
+	
+	xmlHttp.open("GET", get_url, true)
+	xmlHttp.send()
+	console.log(xmlHttp.responseText) 
+	setCookie(url, true, 3600*100)
+	}
+    }
+	
+addLoadEvent(addViewed)	
+   

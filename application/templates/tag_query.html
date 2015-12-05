@@ -6,10 +6,10 @@
         <ul>
             {% for tag in tags %}
             {% if tag.id == current_tag_id %}
-            <li><a class="list-group-item tag-active" href="{{ url_for('main.tag', id=tag.id) }}">{{ tag.name
+            <li><a class="list-group-item tag-active" href="{{ url_for('main.tag', nane=tag.name) }}">{{ tag.name
                 }}</a></li>
             {% else %}
-            <li><a class="list-group-item" href="{{ url_for('main.tag', id=tag.id) }}">{{ tag.name
+            <li><a class="list-group-item" href="{{ url_for('main.tag', name=tag.name) }}">{{ tag.name
                 }}</a></li>
             {% endif %}
             {% endfor %}

@@ -34,11 +34,11 @@ def user(username):
     return render_template("user.html", username=username)
 
 
-@main.route("/category/<int:id>")
-def category(id):
+@main.route("/category/<name>")
+def category(name):
     tags = Tag.query.all()
     categories = Category.query.all()
-    articles = Category.query.get(id).articles
+    articles = Category.query.filter_by(name=name).first().articles
     try:
         page = int(request.args.get('page'))
     except:
@@ -47,11 +47,11 @@ def category(id):
     return render_template("category_query.html", categories=categories, tags=tags, pagination=pagination)
 
 
-@main.route("/tag/<int:id>")
-def tag(id):
+@main.route("/tag/<name>")
+def tag(name):
     tags = Tag.query.all()
     categories = Category.query.all()
-    this_tag = Tag.query.get(id)
+    this_tag = Tag.query.filter_by(name=name).first()
     articles = Article.query.filter(Article.tags.contains(this_tag))    # 存放包含该tag的article的query对象
     try:
         page = int(request.args.get('page'))

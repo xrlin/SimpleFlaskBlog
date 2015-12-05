@@ -88,5 +88,11 @@ function addViewed(){
 	}
     }
 	
-addLoadEvent(addViewed)	
+function setNavbarHighlight(){
+    item = window.location.href.split('/')[4];
+    document.querySelector('li[id='+item+']').className = 'active';
+}
+
+addLoadEvent(addViewed);	
+//addLoadEvent(setNavbarHighlight)
    

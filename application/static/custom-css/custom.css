@@ -28,7 +28,8 @@ body.custom-background {
     color:#fff;
     background-color:rgb(22,161,231);
 }
-.custom-nav .navbar-nav > li > a .active{
+
+.custom-nav .navbar-nav > li > a.active{
     color:#fff;
     background-color:rgb(22,161,231);
 }

@@ -20,14 +20,14 @@
         </div>
         <footer class="article-footer">
                             <span>
-                                目录:<a href="{{ url_for('main.category', id=article.category.id) }}" title="查看该目录的所有文章">
+                                目录:<a href="{{ url_for('main.category', name=article.category.name) }}" title="查看该目录的所有文章">
                                 {{
                                 article.category.name }}</a>
                             </span>
                     <span>
                                 标签:
                                     {% for tag in article.tags %}
-                                    <a href="{{ url_for('main.tag', id=tag.id) }}" title="查看该标签的所有文章"> {{
+                                    <a href="{{ url_for('main.tag', name=tag.name) }}" title="查看该标签的所有文章"> {{
                                         tag.name }}</a>
                                     {% endfor %}
                             </span>

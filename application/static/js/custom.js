@@ -26,7 +26,7 @@ var markdownPreview = function(){
 function setCookie(url, hasViewed, expiretime)
 {
 var exdate=new Date()
-exdate.setTime(exdate.getTime()+expiretime)
+exdate.setTime(exdate.getTime()+expiretime*1000)
 //console.log(exdate.toGMTString());
 document.cookie=url+ "=" +escape(hasViewed)+
 ((expiretime==null) ? "" : ";expires="+exdate.toGMTString())
@@ -84,7 +84,7 @@ function addViewed(){
 	xmlHttp.open("GET", get_url, true)
 	xmlHttp.send()
 	console.log(xmlHttp.responseText) 
-	setCookie(url, true, 3600*100)
+	setCookie(url, true, 3600)
 	}
     }
 	

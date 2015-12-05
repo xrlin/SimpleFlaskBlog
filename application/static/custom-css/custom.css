@@ -23,6 +23,15 @@ body.custom-background {
 .custom-nav {
     border-radius: 0px;
 }
+
+.custom-nav .navbar-nav > li > a:hover{
+    color:#fff;
+    background-color:rgb(22,161,231);
+}
+.custom-nav .navbar-nav > li > a .active{
+    color:#fff;
+    background-color:rgb(22,161,231);
+}
 .container-page {
     padding: 0px;
     background-color: #fff;

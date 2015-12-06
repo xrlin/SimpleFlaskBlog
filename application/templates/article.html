@@ -8,7 +8,7 @@
 {% block article %}
 <div class="col-md-9">
 
-    <div class="article-wrapper ">
+    <div class="article-wrapper">
 	<div class='article-box'>
         <div class="article-header">{{ article.title }}
             <span>发表时间:{{ article.created_date.strftime('%Y/%m/%d') }}</span>
@@ -33,7 +33,6 @@
                             </span>
         </footer>
 	</div>
-    </div>
     {% include '_comments.html' %}
     {% if current_user.is_authenticated %}
     <div>
@@ -48,5 +47,6 @@
     <p class="text-info">{{ message }}</p>
     {% endfor %}
     {% endif %}
+  </div>
 </div>
 {% endblock %}

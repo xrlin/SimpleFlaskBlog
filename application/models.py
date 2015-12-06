@@ -108,8 +108,6 @@ class User(UserMixin, db.Model):
         db.session.commit()
     
     def delete(self):
-        #self.username += '已注销'
-        #self.email = hashlib.md5(self.email.encode('utf-8')).hexdigest() 
         db.session.delete(self)
         db.session.commit()
 

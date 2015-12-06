@@ -87,6 +87,14 @@ def change_password():
         return redirect(url_for('.login'))
     return render_template("auth/change-password.html", form=form)
 
+@auth.route("/delete-account")
+@login_required
+def delete_account():
+    u = current_user
+    u.delete()
+    #flash("帐号已成功删除")
+    logout_user()
+    return redirect(url_for('main.index'))
 
 @auth.route("/change-email-request", methods=['POST', 'GET'])
 @login_required

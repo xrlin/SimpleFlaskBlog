@@ -9,6 +9,7 @@ from itsdangerous import JSONWebSignatureSerializer
 from . import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
+import hashlib
 
 
 class UserQuery(BaseQuery):
@@ -104,6 +105,12 @@ class User(UserMixin, db.Model):
 
     def save(self):
         db.session.add(self)
+        db.session.commit()
+    
+    def delete(self):
+        #self.username += '已注销'
+        #self.email = hashlib.md5(self.email.encode('utf-8')).hexdigest() 
+        db.session.delete(self)
         db.session.commit()
 
 '''

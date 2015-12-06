@@ -25,7 +25,6 @@ python manager.py runserver
 在前端使用js对博文访问进行计数，以此识别是否为同一用户，同时排除网络爬虫对访问计数的影响
 
 #TODO
-添加友情链接  
 优化界面
 添加REST接口
 

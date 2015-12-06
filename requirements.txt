@@ -8,5 +8,6 @@ flask-login
 flask-pagedown
 flask-mail
 flsk-migrate
+flask-gravatar
 tornado
 

@@ -10,6 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_pagedown import PageDown
 from flask_migrate import Migrate
+from flask_gravatar import Gravatar
 from . import config
 bootstrap = Bootstrap()
 mail = Mail()
@@ -36,6 +37,13 @@ def create_app():
     login_manager.init_app(app)
     mail.init_app(app)
     md = Markdown(app, extensions=['fenced_code'])
+    gravatar = Gravatar(app, size=30,
+                    rating='g',
+                    default='mm',
+                    force_default=False,
+                    force_lower=False,
+                    use_ssl=True,
+                    base_url=None)
     pagedown.init_app(app)
     administrator.init_app(app)
     administrator.add_view(ArticleModelView(Article, db.session))

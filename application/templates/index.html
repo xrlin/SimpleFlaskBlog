@@ -76,7 +76,6 @@
                                 }}</a></h1>
                             </header>
                             <div class="article-body markdown-body">
-<link href="{{ url_for('static', filename='custom-css/syntax.css') }} " rel="stylesheet" type="text/css"/>
                                 {{ article.context | truncate(500) | markdown | safe  }}
                             </div>
                             <footer class="article-footer">

@@ -2,7 +2,6 @@
 # -*- coding : utf-8 -*-
 
 from flask import Flask
-from flask.ext.markdown import Markdown
 from flask_admin import Admin
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
@@ -56,7 +55,6 @@ def create_app():
     bootstrap.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-    md = Markdown(app, extensions=['fenced_code'])
     gravatar = Gravatar(app, size=30,
                     rating='g',
                     default='mm',

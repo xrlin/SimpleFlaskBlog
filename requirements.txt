@@ -5,9 +5,9 @@ flask-admin
 flask-markdown
 flask-bootstrap
 flask-login
-flask-pagedown
 flask-mail
 flsk-migrate
 flask-gravatar
+misaka
 tornado
 

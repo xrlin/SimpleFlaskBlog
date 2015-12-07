@@ -15,7 +15,7 @@
             <span class="glyphicon glyphicon-eye-open">{{ article.view_count}}</span>
             <span>评论数:{{article.comments | length}}</span>
         </div>
-        <div>
+        <div class='markdown-body'>
             {{ article.context | markdown | safe}}
         </div>
         <footer class="article-footer">

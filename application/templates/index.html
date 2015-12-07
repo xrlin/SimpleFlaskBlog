@@ -3,6 +3,16 @@
 {{super()}}
 <link href="{{ url_for('static', filename='custom-css/custom.css') }} " rel="stylesheet" type="text/css"
       xmlns="http://www.w3.org/1999/html"/>
+<link href="{{ url_for('static', filename='custom-css/github-markdown.css') }} " rel="stylesheet" type="text/css"/>
+<style>
+    .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+</style>
 <script defer='defer' type="text/javascript" src="{{ url_for('static', filename='js/nav.js') }}"></script>
 {% endblock %}
 {% block title %}Xrlin's Blog{% endblock %}
@@ -63,13 +73,13 @@
                 <div class="col-md-9">
                     <div class="article-wrapper">
                         {% for article in pagination.items %}
-                        <article class="article-box">
+                        <article class="article-box ">
                             <header class="article-header"><h1><a
                                     href="{{ url_for('main.article', id=article.id) }}"> {{
                                 article.title
                                 }}</a></h1>
                             </header>
-                            <div class="article-body">
+                            <div class="article-body markdown-body">
                                 {{ article.context | truncate(500) | markdown | safe  }}
                             </div>
                             <footer class="article-footer">

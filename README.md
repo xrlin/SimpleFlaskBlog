@@ -22,9 +22,12 @@ python manager.py runserver
 管理界面: http://localhost:5000/admin
 
 #更新
-在前端使用js对博文访问进行计数，以此识别是否为同一用户，同时排除网络爬虫对访问计数的影响
+在前端使用js对博文访问进行计数，以此识别是否为同一用户，同时排除网络爬虫对访问计数的影响  
+代码高亮
+Markdown显示优化
 
 #TODO
 优化界面
-添加REST接口
+添加REST接口  
+添加FEED
 

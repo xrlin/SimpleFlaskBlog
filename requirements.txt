@@ -2,12 +2,13 @@ Flask
 flask-wtf
 flask-sqlalchemy
 flask-admin
-flask-markdown
 flask-bootstrap
 flask-login
 flask-mail
 flsk-migrate
 flask-gravatar
 misaka
+pygments
+houdini.py
 tornado
 

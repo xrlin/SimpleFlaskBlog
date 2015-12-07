@@ -1,19 +1,22 @@
 {% macro render_comment(comment, ischild=False) %}
 <ul>
     {% if not ischild %}
-    <li><img src="{{ (comment.author.email if comment.author.email else 'tempory@mail.com') | gravatar }}"/>&emsp;{{ comment.author.username if comment.author.username else '已注销' }}:&emsp;{{comment.body}} <p><a
-            href="#comment" onclick="dealReplyLink('{{comment.author.username}}', '{{comment.id}}')"
-            title="回复该条评论">回复</a>{{' ' * 4}}
+    <li>
+         <img src="{{ (comment.author.email if comment.author.email else 'tempory@mail.com') | gravatar }}"/>&emsp;{{ comment.author.username if comment.author.username else '已注销' }}:&emsp;{{comment.body}}
+         <p><a href="#comment" onclick="dealReplyLink('{{comment.author.username}}', '{{comment.id}}')" title="回复该条评论">回复</a>
+        {{' ' * 4}}
         reply date:&emsp;{{ comment.reply_date.strftime('%Y/%m/%d') }}
-    </p></li>
+         </p>
+    </li>
     {% else %}
     <!-- 这种写法感觉不太好，将逻辑混在视图中， 以后改进 -->
-    <li><img src="{{ (comment.author.email if comment.author.email else 'tempory@mail.com') | gravatar }}" />&emsp;{{comment.author.username if comment.author.username else '已注销'}}&emsp;回复{{Comment.query.get(comment.parent_id).author.username}}:&emsp;{{comment.body  }} <p><a
-            href="#comment" onclick="dealReplyLink('{{comment.author.username}}', '{{comment.id}}')"
-            title="回复该条评论">回复</a>
+    <li>
+        <img src="{{ (comment.author.email if comment.author.email else 'tempory@mail.com') | gravatar }}" />&emsp;{{comment.author.username if comment.author.username else '已注销'}}&emsp;回复{{Comment.query.get(comment.parent_id).author.username}}:&emsp;{{comment.body  }}
+        <p><a href="#comment" onclick="dealReplyLink('{{comment.author.username}}', '{{comment.id}}')" title="回复该条评论">回复</a>
         {{'    '}}
         reply date:&emsp;{{ comment.reply_date.strftime('%Y/%m/%d') }}
-    </p></li>
+    </p>
+    </li>
     {% endif %}
     <ul>
         {% for child in comment.children %}

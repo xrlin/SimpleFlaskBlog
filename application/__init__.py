@@ -11,7 +11,12 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_gravatar import Gravatar
 from . import config
-import misaka
+import misaka as m
+import houdini as h
+from misaka import HtmlRenderer
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
 
 
 bootstrap = Bootstrap()
@@ -29,9 +34,19 @@ from .admin.views import  MicroBlogModelView, ArticleModelView
 from .admin.views import ArticleModelView
 from application.models import Article, User, Category, Tag
 
+class HighlightCodeRender(HtmlRenderer):
+    def blockcode(self, text, lang):
+        if not lang:
+           return '\n<pre><code>%s</code></pre>\n' % \
+               h.escape_html(text.strip())
+        lexer = get_lexer_by_name(lang, stripall=True)
+        formatter = HtmlFormatter()
+        return highlight(text, lexer, formatter)
 
-def transalte_markdown(m):
-    return misaka.html(m)
+render = HighlightCodeRender()
+def transalte_markdown(text):
+    md = m.Markdown(render, extensions=m.EXT_FENCED_CODE | m.EXT_NO_INTRA_EMPHASIS | m.EXT_TABLES | m.EXT_AUTOLINK | m.EXT_SPACE_HEADERS | m.EXT_STRIKETHROUGH | m.EXT_SUPERSCRIPT)
+    return md(text)
 
 def create_app():
     app = Flask(__name__)

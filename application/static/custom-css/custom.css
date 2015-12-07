@@ -2,8 +2,10 @@
     padding: 0px;
     margin: 0px;
 }
-body.custom-background {
+body {
     background-color: #e8e8e8;
+    font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+    color:#111;
 }
 
 .shadow-box {
@@ -24,6 +26,10 @@ body.custom-background {
 
 .header-brand {
     margin-left:24px;
+}
+
+.header-brand  span {
+    text-shadow:1px 0px 3px #666666;
 }
 
 .custom-nav {
@@ -87,13 +93,16 @@ body.custom-background {
 }
 
 .article-header {
-    font-size: 28px;
+    font-size: 45px;
     color: #444444;
 }
 
 .article-header a{
-    font-size: 28px;
     color: #444444;
+}
+
+.article-header a:hover {
+    color:#111111;
 }
 
 .article-header span{
